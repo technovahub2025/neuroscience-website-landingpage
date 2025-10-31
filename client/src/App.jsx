@@ -7,19 +7,57 @@ import logo from "./assets/logo.png";
 import MissionSection from "./components/MissionSection";
 
 const App = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((s) => ({ ...s, [name]: value }));
-  };
+ const [form, setForm] = useState({
+  name: "",
+  email: "",
+  phone: "",
+  age: "",
+  occupation: "",
+  message: "",
+  terms: false,
+});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Thanks ${form.name || "there"}! Your message was received (demo).`);
-    setForm({ name: "", email: "", message: "" });
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setForm((s) => ({ ...s, [name]: value }));
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!form.terms) {
+    alert("Please agree to the Terms & Conditions before submitting.");
+    return;
+  }
+
+  try {
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbyHz6FjGHzEs0fCPnvzrt_zquj4NBVK1vu4izT1lRPsum4GCtORs69ZVTnXdGNFNMxQ/exec",
+      {
+        method: "POST",
+        mode: "no-cors",
+        body: new FormData(e.target),
+      }
+    );
+
+    alert(`✅ Thanks ${form.name || "there"}! Your message was sent successfully.`);
+    setForm({
+      name: "",
+      email: "",
+      phone: "",
+      age: "",
+      occupation: "",
+      message: "",
+      terms: false,
+    });
+  } catch (error) {
+    alert("❌ Error connecting to Google Sheet!");
+    console.error(error);
+  }
+};
+
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -213,63 +251,177 @@ const App = () => {
 </section>
 
 
+
+
+
+
+
+
       {/* Contact Section */}
-      <section
-        id="contact"
-        className="py-24 bg-gradient-to-r from-blue-50 via-white to-purple-50"
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="max-w-2xl mx-auto text-center px-6"
-        >
-          <h2 className="text-4xl font-bold text-indigo-700 mb-6">Contact Us</h2>
-          <p className="text-gray-600 mb-10 text-lg">
-            Have questions or want to collaborate? Drop us a message!
-          </p>
+  <section
+  id="contact"
+  className="py-24 bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden"
+>
+  {/* Decorative Gradient Blobs */}
+  <div className="absolute -top-32 -right-32 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl" />
+  <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl" />
 
-          <form
-            onSubmit={handleSubmit}
-            className="bg-white/70 backdrop-blur-lg rounded-3xl shadow-xl p-8 space-y-6 border border-gray-100"
-          >
-            {["name", "email", "message"].map((field) => (
-              <div key={field}>
-                <label className="block text-gray-700 font-medium mb-2 capitalize">
-                  {field}
-                </label>
-                {field === "message" ? (
-                  <textarea
-                    name={field}
-                    value={form[field]}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
-                    required
-                  />
-                ) : (
-                  <input
-                    type={field === "email" ? "email" : "text"}
-                    name={field}
-                    value={form[field]}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none"
-                    required
-                  />
-                )}
-              </div>
-            ))}
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.8 }}
+    className="relative max-w-3xl mx-auto text-center px-6 z-10"
+  >
+    <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700 mb-6">
+      Get in Touch
+    </h2>
 
-            <button
-              type="submit"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:opacity-90 transition-all"
-            >
-              Send Message
-            </button>
-          </form>
-        </motion.div>
-      </section>
+    <p className="text-gray-600 mb-10 text-lg">
+      Have questions or want to collaborate? We’d love to hear from you!
+    </p>
+
+   <form
+  onSubmit={handleSubmit}
+  className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-10 border border-white/40 space-y-8"
+>
+  {/* Two-Column Grid for Inputs */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {/* Name */}
+    <div>
+      <label className="block text-gray-700 font-medium mb-2">Full Name</label>
+      <input
+        type="text"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none"
+        placeholder="Enter your full name"
+        required
+      />
+    </div>
+
+    {/* Email */}
+    <div>
+      <label className="block text-gray-700 font-medium mb-2">Email</label>
+      <input
+        type="email"
+        name="email"
+        value={form.email}
+        onChange={handleChange}
+        className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none"
+        placeholder="Enter your email"
+        required
+      />
+    </div>
+
+    {/* Phone */}
+    <div>
+      <label className="block text-gray-700 font-medium mb-2">Phone Number</label>
+      <input
+        type="tel"
+        name="phone"
+        value={form.phone}
+        onChange={handleChange}
+        className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none"
+        placeholder="Enter your phone number"
+        required
+      />
+    </div>
+
+    {/* Age */}
+    <div>
+      <label className="block text-gray-700 font-medium mb-2">Age</label>
+      <input
+        type="number"
+        name="age"
+        value={form.age}
+        onChange={handleChange}
+        className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none"
+        placeholder="Enter your age"
+        min="10"
+        max="100"
+        required
+      />
+    </div>
+
+    {/* Occupation */}
+    <div className="md:col-span-2">
+      <label className="block text-gray-700 font-medium mb-2">Occupation</label>
+      <input
+        type="text"
+        name="occupation"
+        value={form.occupation}
+        onChange={handleChange}
+        className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none"
+        placeholder="Student / Researcher / Engineer"
+        required
+      />
+    </div>
+
+    {/* Message */}
+    <div className="md:col-span-2">
+      <label className="block text-gray-700 font-medium mb-2">Message</label>
+      <textarea
+        name="message"
+        value={form.message}
+        onChange={handleChange}
+        rows={4}
+        className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
+        placeholder="Write your message here..."
+        required
+      />
+    </div>
+  </div>
+
+  {/* Terms Checkbox */}
+  <div className="flex items-start space-x-3">
+    <input
+      type="checkbox"
+      name="terms"
+      checked={form.terms}
+      onChange={(e) => setForm((f) => ({ ...f, terms: e.target.checked }))}
+      className="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+      required
+    />
+    <label className="text-gray-700 text-sm text-left">
+      I agree to the{" "}
+      <a href="#" className="text-indigo-600 hover:underline">
+        Terms & Conditions
+      </a>{" "}
+      and the{" "}
+      <a href="#" className="text-indigo-600 hover:underline">
+        Privacy Policy
+      </a>.
+    </label>
+  </div>
+
+  {/* Submit Button */}
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.97 }}
+    type="submit"
+    className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:opacity-90 transition-all shadow-lg"
+  >
+    Send Message
+  </motion.button>
+</form>
+
+  </motion.div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       {/* Footer */}
       <footer className="bg-gradient-to-r from-indigo-900 to-blue-900 text-white py-6 text-center">
