@@ -26,7 +26,7 @@ const App = () => {
   return (
     <div className="font-poppins text-slate-900 bg-gray-50 scroll-smooth">
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 w-full bg-white/70 backdrop-blur-md border-b border-gray-200 z-50">
+      <nav className="fixed top-0 left-0 w-full bg-white backdrop-blur-md border-b border-gray-200 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:px-10">
           <div className=" text-2xl md:text-4xl font-bold text-blue-800 tracking-tight">
             Neuro<span className="text-purple-700">Science</span>
@@ -80,7 +80,7 @@ const App = () => {
       {/* Hero Section */}
           <section
       id="home"
-      className="relative flex flex-col items-center justify-center text-center h-screen overflow-hidden bg-blue-50 "
+      className="relative flex flex-col items-center justify-center text-center h-screen overflow-hidden "
     >
 
        {/* Decorative shapes */}
@@ -101,23 +101,25 @@ const App = () => {
         <motion.img
           src={logo}
           alt="Logo"
-          className="w-52 h-52 md:w-64 md:h-64 mx-auto rounded-full border-4 border-white/30 backdrop-blur-sm shadow-2xl"
+          className="w-52 h-52 md:w-84 md:h-84 mx-auto rounded-full border-4 border-white/30 backdrop-blur-sm shadow-2xl"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.8 }}
         />
 
-        <h1 className="text-3xl sm:text-5xl font-bold mt-6 leading-snug">
-          Welcome to{" "}
-          <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Technovahub
-          </span>
-        </h1>
+      <div className="text-center px-4 md:px-8">
+  <h2 className="text-2xl md:text-5xl font-bold mt-8 text-gray-900 leading-snug">
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+      TechnovaHub&nbsp;
+    </span>
+    <span className="text-gray-800">| Empowering Innovation in Neuroscience |</span>
+  </h2>
 
-        <p className="text-gray-200 mt-4 text-sm sm:text-lg">
-          Innovating neuroscience and human-computer interaction through
-          accessible technology.
-        </p>
+  <p className="text-gray-600 mt-4 text-base md:text-lg max-w-2xl mx-auto">
+    Innovating neuroscience and human-computer interaction through
+    accessible technology.
+  </p>
+</div>
 
         <div className="mt-8">
           <a
