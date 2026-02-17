@@ -110,30 +110,6 @@ const App = () => {
       </nav>
 
       {/* HERO SECTION */}
- 
-
-         <section className="mt-[100px]">
-          <div className="max-w-7xl mx-auto">
-            hello
-          </div>
-         </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       {/* MISSION SECTION */}
       <MissionSection />

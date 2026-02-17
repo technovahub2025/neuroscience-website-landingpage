@@ -70,7 +70,10 @@ const features = [
 
 const MissionSection = () => {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-24 bg-gradient-to-b from-gray-50 via-white to-gray-50">
+    <section
+      id="home"
+      className="relative overflow-hidden py-20 sm:py-24 scroll-mt-24 bg-gradient-to-b from-gray-50 via-white to-gray-50"
+    >
       {/* Decorative background blur */}
       <div className="absolute top-0 -left-32 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-30" />
       <div className="absolute bottom-0 -right-32 w-96 h-96 bg-purple-100 rounded-full blur-3xl opacity-30" />
