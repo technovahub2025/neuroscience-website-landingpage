@@ -63,7 +63,7 @@ const App = () => {
       <nav className="fixed top-0 left-0 w-full bg-white/70 backdrop-blur-lg border-b border-gray-200 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
           <div className="flex items-center space-x-3">
-            <img src={logo} alt="logo" className="w-12 h-12" />
+            <img src={logo} alt="logo" className="w-20 h-20" />
             <h1 className="text-2xl md:text-3xl font-bold text-blue-800">
               Neuro<span className="text-purple-700">Science</span>
             </h1>
